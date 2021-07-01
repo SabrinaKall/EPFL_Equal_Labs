@@ -11,10 +11,12 @@ labs = pd.read_csv('db/labs.csv').sort_values(by="number_women")
 app = dash.Dash(__name__)
 server = app.server
 faculties = list(labs["faculty"].unique())
-faculties.append("ALL")
+faculties.insert(0, "ALL")
 app.layout = html.Div([
-    html.Div([dcc.Dropdown(id='faculty-select', options=[{'label': i, 'value': i} for i in faculties], value='IC', style={'width': '140px'})]),
-    html.Div([dcc.Dropdown(id='sort-select', options=[{'label': i, 'value': i} for i in ["women", "total"]], value='women', style={'width': '140px'})]),
+    html.Div([
+        dcc.Dropdown(id='faculty-select', options=[{'label': i, 'value': i} for i in faculties], value='ALL', style={'width': '140px'}),
+        dcc.Dropdown(id='sort-select', options=[{'label': i, 'value': i} for i in ["total", "women", "men"]], value='total', style={'width': '140px'})
+        ]),
     dcc.Graph('bar-chart-graph', config={'displayModeBar': False})
 ])
 
@@ -30,6 +32,8 @@ def update_graph(faculty, sort_type):
 
     if sort_type == 'women': 
         faculty_labs = faculty_labs.sort_values(by="number_women")
+    elif sort_type == 'men':
+        faculty_labs = faculty_labs.sort_values(by="number_men")
     else:
         faculty_labs["total"] = faculty_labs['number_women'] + faculty_labs['number_men']
         faculty_labs = faculty_labs.sort_values(by='total')
