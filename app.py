@@ -1,7 +1,6 @@
-from logging import PlaceHolder
-
 from dash_html_components.Label import Label
-from Lab_Data import Lab_Data
+from dash_html_components.P import P
+from lab_data import LabData
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -13,7 +12,7 @@ app = dash.Dash(
     __name__, title='HireHer: gender equality in hiring at EPFL Labs')
 server = app.server
 
-lab_data = Lab_Data()
+lab_data = LabData()
 
 app.layout = html.Div(children=[
 
@@ -37,7 +36,8 @@ app.layout = html.Div(children=[
                         placeholder='Select a lab',
                         searchable=True,
                         )],
-                        style={'width': '25%', 'display': 'inline-block', 'margin': '1%'},
+                       style={'width': '25%',
+                              'display': 'inline-block', 'margin': '1%'},
                        ),
 
             html.Label([html.Div(['''Sort by''']),
@@ -48,14 +48,20 @@ app.layout = html.Div(children=[
                         value='total',
                         placeholder='Sort by...',
                         )],
-                        style={'width': '25%', 'display': 'inline-block', 'margin': '1%'},
+                       style={'width': '25%',
+                              'display': 'inline-block', 'margin': '1%'},
                        ),
         ],
-            
+
         )
     ),
 
-    html.Div([dcc.Graph('bar-chart-graph', config={'displayModeBar': False})])
+    html.Div([dcc.Graph('bar-chart-graph', config={'displayModeBar': False})]),
+    html.Div([
+        html.P(['* Does not include non-technical staff, guests or project students']),
+        html.P(['** If you feel any of the lab information is inaccurate or out-of-date, feel free to send me the correct information, including a source, at "". )'])
+    ],
+        style={'font-size':'small'})
 ])
 
 
@@ -77,7 +83,8 @@ def update_graph(faculty, sort_type):
                      "total researchers": faculty_labs["number_men"] + faculty_labs["number_women"],
                      "men": faculty_labs["number_men"],
                      "women": faculty_labs["number_women"]
-                 }
+                 },
+                 labels={"acronym":"lab", "value": "research staff breakdown"}
                  )
     return fig
 
