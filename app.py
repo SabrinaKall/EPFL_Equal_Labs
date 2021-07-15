@@ -1,3 +1,6 @@
+import webbrowser
+from dash.exceptions import PreventUpdate
+from dash_html_components import H4
 from dash_html_components.Label import Label
 from dash_html_components.P import P
 from lab_data import LabData
@@ -9,7 +12,7 @@ import plotly.express as px
 
 
 app = dash.Dash(
-    __name__, title='HireHer: gender equality in hiring at EPFL Labs')
+    __name__, title='EPFL Labs by Gender')
 server = app.server
 
 lab_data = LabData()
@@ -20,13 +23,14 @@ app.layout = html.Div(children=[
         className="app-header",
         children=[
             html.Div(
-                'Gender distribution of research staff at EPFL Labs',
+                'Gender in research at EPFL Labs',
                 className="app-header--title")
         ]),
 
     html.Div(
         children=html.Div([
             html.H5('General'),
+            html.P('Our data was collected from the official lab websites, which may be incomplete or out-of-date. Non-technical staff, guests and project students are not considered EPFL research staff.'),
             html.Label([html.Div(['''Filter by faculty''']),
                         dcc.Dropdown(
                         id='faculty-select',
@@ -57,11 +61,9 @@ app.layout = html.Div(children=[
     ),
 
     html.Div([dcc.Graph('bar-chart-graph', config={'displayModeBar': False})]),
-    html.Div([
-        html.P(['* Does not include non-technical staff, guests or project students']),
-        html.P(['** If you feel any of the lab information is inaccurate or out-of-date, feel free to send me the correct information, including a source, at "". )'])
-    ],
-        style={'font-size':'small'})
+    html.Footer(['For questions, comments, contributions or ideas for expansion, feel free to contact us at epfl.labs.gender.update@protonmail.com.'],
+        style={'font-size':'small'}
+    ),
 ])
 
 
@@ -82,11 +84,24 @@ def update_graph(faculty, sort_type):
                      "value": False,
                      "total researchers": faculty_labs["number_men"] + faculty_labs["number_women"],
                      "men": faculty_labs["number_men"],
-                     "women": faculty_labs["number_women"]
+                     "women": faculty_labs["number_women"],
                  },
-                 labels={"acronym":"lab", "value": "research staff breakdown"}
+                 labels={"acronym": "lab", "value": "research staff breakdown"},
+                 custom_data=['lab_url']
                  )
+
     return fig
+
+
+@app.callback(
+    Output('bar-chart-graph', 'children'),
+    [Input('bar-chart-graph', 'clickData')])
+def open_source_url(clickData):
+    if clickData:
+        url = clickData['points'][0]['customdata'][0]
+        webbrowser.open_new_tab(url)
+    else:
+        raise PreventUpdate
 
 
 if __name__ == '__main__':

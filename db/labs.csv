@@ -1,4 +1,4 @@
-name,acronym,source,faculty,institute,number_women,number_men,,
+name,acronym,lab_url,faculty,institute,number_women,number_men,,
 "Architecture, Critiquem History and Theory"," ACHT",https://www.epfl.ch/labs/acht/,ENAC,IA,1,3,,
 Design Studio on the Conception of Space,ALICE,https://www.epfl.ch/labs/alice/,ENAC,IA,12,21,,
 "Chair of Mathematical Analysis,  Calculus of Variations and PDEs"," AMCV",https://www.epfl.ch/labs/amcv/,SB,MATH,2,6,,
@@ -240,7 +240,6 @@ Laboratory of Therapeutic Proteins and Peptides,LPPT,https://www.epfl.ch/labs/lp
 Laboratory of Photonics and Quantum Measurements,LPQM,https://www.epfl.ch/labs/k-lab/,STI,IEL,1,27,,
 Psychophysics Laboratory,LPSY,https://www.epfl.ch/labs/lpsy/,SV,BMI,6,11,,
 Theoretical Particle Physics Laboratory,LPTP,https://www.epfl.ch/labs/lptp/,SB,IPHYS,1,11,,
-Fondation Sandoz Chair in Physics of Quantum Gases,LQG,https://www.epfl.ch/labs/lqg/,SB,IPHYS,0,1,,
 Fondation Sandoz Chair in Physics of Quantum Gases,LQG,https://lqg.epfl.ch/,SB,IPHYS,0,7,,
 Laboratory for Quantum Magnetism,LQM,https://www.epfl.ch/labs/lqm/,SB,IPHYS,7,25,,
 "Laboratory of Quantum Physics,  Topology and Correlations",LQP,https://www.epfl.ch/labs/lqp/,SB,IPHYS,1,0,,
