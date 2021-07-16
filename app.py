@@ -60,6 +60,7 @@ app.layout = html.Div(children=[
     html.Footer(['For questions, comments, contributions or ideas for expansion, feel free to contact us at epfl.labs.gender.update@protonmail.com.'],
         style={'font-size':'small'}
     ),
+    html.P(id='hidden-div'),
 ])
 
 
@@ -90,13 +91,13 @@ def update_graph(faculty, sort_type):
 
 
 @app.callback(
-    Output('bar-chart-graph', 'children'),
+    Output('hidden-div', 'children'),
     [Input('bar-chart-graph', 'clickData')])
 def open_source_url(clickData):
     if clickData:
         url = clickData['points'][0]['customdata'][0]
-        print("Opening " + str(url) + " in new tab.")
         webbrowser.open_new_tab(url)
+        return ""
     else:
         raise PreventUpdate
 
