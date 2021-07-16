@@ -19,8 +19,8 @@ class LabData:
         faculty_labs = self.filter_labs_by_faculty(faculty)
 
         if gender == 'women':
-            return faculty_labs.sort_values(by="number_women")
+            return faculty_labs.sort_values(by=["number_women", "total"])
         elif gender == 'men':
-            return faculty_labs.sort_values(by="number_men")
+            return faculty_labs.sort_values(by=["number_men", "total"])
         else:
-            return faculty_labs.sort_values(by='total')
+            return faculty_labs.sort_values(by=['total', "number_women"])

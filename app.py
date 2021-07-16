@@ -19,7 +19,7 @@ app.layout = html.Div(children=[
         className="app-header",
         children=[
             html.Div(
-                'Gender in research at EPFL Labs',
+                'Gender in Research at EPFL Labs',
                 className="app-header--title")
         ]),
 
@@ -82,7 +82,7 @@ def update_graph(faculty, sort_type):
                      "men": faculty_labs["number_men"],
                      "women": faculty_labs["number_women"],
                  },
-                 labels={"acronym": "lab", "value": "research staff breakdown"},
+                 labels={"acronym": "lab", "value": "number of research staff"},
                  custom_data=['lab_url']
                  )
 
@@ -95,6 +95,7 @@ def update_graph(faculty, sort_type):
 def open_source_url(clickData):
     if clickData:
         url = clickData['points'][0]['customdata'][0]
+        print("Opening " + str(url) + " in new tab.")
         webbrowser.open_new_tab(url)
     else:
         raise PreventUpdate
