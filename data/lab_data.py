@@ -4,7 +4,7 @@ import pandas as pd
 class LabData:
 
     def __init__(self):
-        self.labs = pd.read_csv('db/labs.csv')
+        self.labs = pd.read_csv('data/labs.csv')
         self.labs['total'] = self.labs['number_women'] + self.labs["number_men"]
         self.faculties = ["ALL"] + list(self.labs["faculty"].unique())
         

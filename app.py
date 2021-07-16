@@ -1,6 +1,6 @@
 import webbrowser
 from dash.exceptions import PreventUpdate
-from lab_data import LabData
+from data.lab_data import LabData
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
