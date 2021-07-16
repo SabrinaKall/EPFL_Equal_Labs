@@ -1,15 +1,11 @@
 import webbrowser
 from dash.exceptions import PreventUpdate
-from dash_html_components import H4
-from dash_html_components.Label import Label
-from dash_html_components.P import P
 from lab_data import LabData
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import plotly.express as px
-
 
 app = dash.Dash(
     __name__, title='EPFL Labs by Gender')
