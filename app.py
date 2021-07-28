@@ -1,5 +1,7 @@
 import webbrowser
 from dash.exceptions import PreventUpdate
+from dash_html_components.H6 import H6
+from dash_html_components.Ul import Ul
 from data.lab_data import LabData
 import dash
 import dash_core_components as dcc
@@ -25,8 +27,7 @@ app.layout = html.Div(children=[
 
     html.Div(
         children=html.Div([
-            html.H5('General'),
-            html.P('Our data was collected from the official lab websites, which may be incomplete or out-of-date. Non-technical staff, guests and project students are not considered EPFL research staff.'),
+            html.H4('General'),
             html.Label([html.Div(['''Filter by faculty''']),
                         dcc.Dropdown(
                         id='faculty-select',
@@ -57,10 +58,13 @@ app.layout = html.Div(children=[
     ),
 
     html.Div([dcc.Graph('bar-chart-graph', config={'displayModeBar': False})]),
-    html.Footer(['For questions, comments, contributions or ideas for expansion, feel free to contact us at epfl.labs.gender.update@protonmail.com.'],
-        style={'font-size':'small'}
-    ),
-    html.P(id='hidden-div'),
+    html.Div([
+        html.H4("Details"),
+        html.A(id='lab_url'),
+    ]),
+    html.Footer(['Our data was collected from the official lab websites, which may be incomplete or out-of-date. Non-technical staff, guests and project students are not considered EPFL research staff. For questions, comments, contributions or ideas for expansion, feel free to contact us at epfl.labs.gender.update@protonmail.com.'],
+                style={'font-size': 'small'}
+                ),
 ])
 
 
@@ -91,13 +95,13 @@ def update_graph(faculty, sort_type):
 
 
 @app.callback(
-    Output('hidden-div', 'children'),
+    [Output('lab_url', 'href'), Output('lab_url', 'children')],
     [Input('bar-chart-graph', 'clickData')])
 def open_source_url(clickData):
     if clickData:
         url = clickData['points'][0]['customdata'][0]
-        webbrowser.open_new_tab(url)
-        return ""
+        #webbrowser.open_new_tab(url)
+        return [url, url]
     else:
         raise PreventUpdate
 
