@@ -4,7 +4,7 @@ import pandas as pd
 class LabData:
 
     def __init__(self):
-        self.labs = pd.read_csv('data/labs.csv')
+        self.labs = pd.read_csv('data/labs.csv').fillna({'institute': 'None found'})
         self.labs['total'] = self.labs['number_women'] + self.labs["number_men"]
         self.faculties = ["ALL"] + list(self.labs["faculty"].unique())
         
@@ -19,8 +19,11 @@ class LabData:
         faculty_labs = self.filter_labs_by_faculty(faculty)
 
         if gender == 'women':
-            return faculty_labs.sort_values(by=["number_women", "total"])
+            return faculty_labs.sort_values(by=["number_women", "acronym"])
         elif gender == 'men':
-            return faculty_labs.sort_values(by=["number_men", "total"])
+            return faculty_labs.sort_values(by=["number_men", "acronym"])
         else:
-            return faculty_labs.sort_values(by=['total', "number_women"])
+            return faculty_labs.sort_values(by=['total', "acronym"])
+
+    def get_random_lab(self):
+        return self.labs.sample()

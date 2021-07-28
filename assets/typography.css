@@ -10,3 +10,40 @@ h5,
 h6 {
     color: red
 }
+
+table {
+    width: 99%;
+    margin-left: 1%;
+}
+
+th,
+td {
+    border: thin lightgrey solid;
+    display: block;
+}
+
+th {
+    text-align: left;
+}
+
+td {
+    width: 100%;
+}
+
+tr {
+    display: block;
+    float: left;
+}
+
+label {
+    width: 25%;
+    display: inline-block;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+footer {
+    position: fixed;
+    bottom: 1%;
+    font-size: small;
+}
