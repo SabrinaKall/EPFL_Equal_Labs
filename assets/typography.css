@@ -12,8 +12,8 @@ h6 {
 }
 
 table {
-    width: 99%;
-    margin-left: 1%;
+    width: 100%;
+    margin-left: 0%;
 }
 
 th,
@@ -46,4 +46,19 @@ footer {
     position: fixed;
     bottom: 1%;
     font-size: small;
+}
+
+.parent {
+    display: flex;
+    justify-content: space-around;
+}
+
+.left-div {
+    width: 40%;
+    float: left;
+}
+
+.right-div {
+    width: 40%;
+    float: right;
 }

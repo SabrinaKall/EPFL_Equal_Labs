@@ -1,5 +1,8 @@
 import webbrowser
 from dash.exceptions import PreventUpdate
+from dash_html_components.A import A
+from dash_html_components.Div import Div
+from dash_html_components.H5 import H5
 from dash_html_components.H6 import H6
 from dash_html_components.Table import Table
 from dash_html_components.Td import Td
@@ -59,8 +62,9 @@ app.layout = html.Div(children=[
         ],
         )
     ),
-
     html.Div([dcc.Graph('bar-chart-graph', config={'displayModeBar': False})]),
+    html.Div(className='parent', children=[
+        html.Div(className='left-div', children=[
     html.H5("Lab details"),
     html.Table(children=[
         html.Tr([
@@ -90,10 +94,25 @@ app.layout = html.Div(children=[
                 html.Td(id='lab_number_women', children=[
                         sample_entry['number_women'].iloc[0]]),
                 ]),
-    ]),
+    ]),]),
+        html.Div(className='right-div', children=
+            [html.H5("Some fun stats:"),
+        html.Ul(children=[
+            html.Li("Europe-wide, women make up 41% of engineers and researchers."),
+            html.Li("Switzerland-wide, women make up 33% of engineers and researchers."),
+            html.Li("EPFL-wide, women make up 27% of engineers and researchers."),
+
+        ]),
+        html.H6("Sources:"),
+        html.Ul(children=[
+            html.Li(html.A(children=["Stats for countries"], href="https://ec.europa.eu/eurostat/web/products-eurostat-news/-/edn-20190211-1")),
+            html.Li(html.A(children=["Stats for EPFL"], href="https://www.epfl.ch/about/equality/equalityepfl/gender_monitoring/"))
+        ])
+        ])
+        ]),
     html.P(" ", style={'width': '100%', 'font-size': 'small'}),
     html.Footer(['Our data was collected from the official lab websites, which may be incomplete or out-of-date. Non-technical staff, guests and project students are not considered EPFL research staff. For questions, comments, contributions or ideas for expansion, feel free to contact us at epfl.labs.gender.update@protonmail.com.'],
-                style={'font-size': 'small'}
+        
                 ),
 ])
 
@@ -121,6 +140,13 @@ def update_graph(faculty, sort_type):
                  custom_data=['lab_url', 'name',
                               'acronym', 'faculty', 'institute']
                  )
+
+    if(faculty != "ALL"):
+        fig.update_layout(
+            xaxis = {
+            "dtick": 1
+            }
+)
 
     return fig
 
